@@ -8,7 +8,7 @@ import { type Dog } from '@/types/dog';
 
 export default function BreedsPage() {
   const [filteredBreeds, setFilteredBreeds] = useState<Dog[]>(dogBreeds);
-  const [filters, setFilters] = useState<BreedFilters>({
+  const [filters, setFilters] = useState<Required<BreedFilters>>({
     search: '',
     size: 'all',
     energyLevel: 'all',
@@ -56,7 +56,12 @@ export default function BreedsPage() {
   }, [filters]);
 
   const handleFilterChange = (newFilters: BreedFilters) => {
-    setFilters(newFilters);
+    setFilters({
+      search: newFilters.search || '',
+      size: newFilters.size || 'all',
+      energyLevel: newFilters.energyLevel || 'all',
+      friendliness: newFilters.friendliness || 'all',
+    });
   };
 
   return (
